@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>paginator</title>
+</head>
+<body>
+<div class="row">
+    {% for post in page_obj %}
+        <div class="col-md-4">
+            <h1 style="color:gold; ">{{ post.title }}</h1>
+            <p style="color:green; font-family:verdana; font-size:150%;
+            background-color: lightblue; height:30px; width: 500px">{{ post.content }}</p>
+            <p style="color:blue; font-family:courier; font-size:100%">{{ post.created_at }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+<div>
+    <p style="color:red">Для удобства просмотра выберете количество постов на странице:</p>
+    <ul class="list-group list-group-flush">
+        {% for i in len_post %}
+          <li class="list-group-item">
+              <a href="?page='1'&pag_step={{i}}">{{ i }}</a>
+          </li>
+
+        {% endfor %}
+    </ul>
+
+
+</div>
+
+<div>
+  <span>
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}&pag_step={{ pag_step }}">Previous</a>
+    {% endif %}
+    <span>
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}&pag_step={{ pag_step }}">Next</a>
+    {% endif %}
+  </span>
+</div>
+
+</body>
+</html>
